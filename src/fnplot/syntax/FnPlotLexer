@@ -68,20 +68,41 @@ alphanum = {alpha}|{num}
 <YYINITIAL>	"*"	{return new Symbol(sym.MUL);}
 <YYINITIAL>	"/"	{return new Symbol(sym.DIV);}
 <YYINITIAL>	"%"	{return new Symbol(sym.MOD);}
-<YYINITIAL>	"="	{return new Symbol(sym.ASSIGN);}
+<YYINITIAL>	":="	{return new Symbol(sym.ASSIGN);}
+<YYINITIAL> "^" {return new Symbol(sym.EXP);}
+<YYINITIAL> "&" {return new Symbol(sym.AND);}
+<YYINITIAL> "|" {return new Symbol(sym.OR);}
+<YYINITIAL> "~" {return new Symbol(sym.NOT);}
+<YYINITIAL> "@" {return new Symbol(sym.CONCAT);}
+<YYINITIAL> ">" {return new Symbol(sym.LTHAN);}
+<YYINITIAL> "<" {return new Symbol(sym.GTHAN);}
+<YYINITIAL> ">=" {return new Symbol(sym.EQGTHAN);}
+<YYINITIAL> "<=" {return new Symbol(sym.EQLTHAN);}
+<YYINITIAL> "!=" {return new Symbol(sym.NOTEQUAL);}
+<YYINITIAL> "=" {return new Symbol(sym.EQUAL);}
+
 
 <YYINITIAL>	"("	{return new Symbol(sym.LPAREN);}
 <YYINITIAL>	")"	{return new Symbol(sym.RPAREN);}
 
-<YYINITIAL>	"{"	{return new Symbol(sym.LBRACE);}
-<YYINITIAL>	"}"	{return new Symbol(sym.RBRACE);}
+<YYINITIAL>	"["	{return new Symbol(sym.LBRACE);}
+<YYINITIAL>	"]"	{return new Symbol(sym.RBRACE);}
 
 <YYINITIAL>	","	{return new Symbol(sym.COMMA);}
 
-<YYINITIAL>	"let"	{return new Symbol(sym.LET);}
-<YYINITIAL>	"in"	{return new Symbol(sym.IN);}
+<YYINITIAL>	"let" {return new Symbol(sym.LET);}
+<YYINITIAL>	"if" {return new Symbol(sym.IF);}
+<YYINITIAL> "proc" {return new Symbol(sym.PROC);}
+<YYINITIAL> "call" {return new Symbol(sym.CALL);}
+<YYINITIAL> "def" {return new Symbol(sym.DEFINE);}
+<YYINITIAL> "then" {return new Symbol(sym.THEN);}
+<YYINITIAL> "else" {return new Symbol(sym.ELSE);}
+<YYINITIAL> "case" {return new Symbol(sym.CASE);}
 
-<YYINITIAL>	";" 	{return new Symbol(sym.SEMI);}
+
+<YYINITIAL>	";" {return new Symbol(sym.SEMI);}
+<YYINITIAL> ":" {return new Symbol(sym.COLON);}
+
 
 <YYINITIAL>    {num}+ {
 	       // INTEGER
