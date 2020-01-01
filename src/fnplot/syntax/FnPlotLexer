@@ -56,19 +56,14 @@ alphanum = {alpha}|{num}
 
 %%
 
-<YYINITIAL>	{nl}	{
-                        //skip newline, but reset char counter
-			yycolumn = 0;
-			}
-<YYINITIAL>	{ws}	{
-                        //skip whitespace
-			}
+<YYINITIAL>	{nl}	{yycolumn = 0;}
+<YYINITIAL>	{ws} {}
 <YYINITIAL>	"+"	{return new Symbol(sym.PLUS);}
 <YYINITIAL>	"-"	{return new Symbol(sym.MINUS);}
 <YYINITIAL>	"*"	{return new Symbol(sym.MUL);}
 <YYINITIAL>	"/"	{return new Symbol(sym.DIV);}
 <YYINITIAL>	"%"	{return new Symbol(sym.MOD);}
-<YYINITIAL>	":="	{return new Symbol(sym.ASSIGN);}
+<YYINITIAL>	":=" {return new Symbol(sym.ASSIGN);}
 <YYINITIAL> "^" {return new Symbol(sym.EXP);}
 <YYINITIAL> "&" {return new Symbol(sym.AND);}
 <YYINITIAL> "|" {return new Symbol(sym.OR);}
@@ -104,11 +99,20 @@ alphanum = {alpha}|{num}
 <YYINITIAL> ":" {return new Symbol(sym.COLON);}
 
 
-<YYINITIAL>    {num}+ {
-	       // INTEGER
-	       return new Symbol(sym.INTEGER, 
-				 new Integer(yytext()));
-	       }
+
+<YYINITIAL> {num}+ {return new Symbol(sym.INTEGER,new Integer(yytext()));}
+<YYINITIAL> {num}*"\."{num}* {return new Symbol(sym.REAL, new Double(yytext()));}
+<YYINITIAL> "#x"[0-9a-fA-F]+ {return new Symbol(sym.INTEGER, 0);}
+<YYINITIAL> "#b"{0|1}+ {return new Symbol(sym.INTEGER,0);}
+<YYINITIAL> "#c"[^\r\n] {return new Symbol(sym.CHAR, yytext());}
+<YYINITIAL> "#e" {return new Symbol(sym.NIL);}
+<YYINITIAL> "#u"[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F] {return new Symbol(sym.CHAR, 0)}
+<YYINITIAL> "#t" {return new Symbol(sym.BOOL, true);}
+<YYINITIAL> "#f" {return new Symbol(sym.BOOL, false);}
+
+
+
+
 
 <YYINITIAL>    {alpha}{alphanum}* {
 	       // VARIABLE
