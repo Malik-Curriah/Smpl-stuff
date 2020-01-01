@@ -106,7 +106,7 @@ alphanum = {alpha}|{num}
 
 <YYINITIAL> "#x"[0-9a-fA-F]+ {return new Symbol(sym.INTEGER, Integer.parseInt(yytext().substring(2),16));}
 
-<YYINITIAL> "#b"{0|1}+ {return new Symbol(sym.INTEGER, Integer.parseInt(yytext().substring(2),2));}
+<YYINITIAL> "#b"("0"|"1")+ {return new Symbol(sym.INTEGER, Integer.parseInt(yytext().substring(2),2));}
 
 <YYINITIAL> "#c"[^\r\n] {return new Symbol(sym.CHAR, yytext().charAt(2));}
 
