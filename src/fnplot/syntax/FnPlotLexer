@@ -101,20 +101,23 @@ alphanum = {alpha}|{num}
 
 
 <YYINITIAL> {num}+ {return new Symbol(sym.INTEGER,new Integer(yytext()));}
+
 <YYINITIAL> {num}*"\."{num}* {return new Symbol(sym.REAL, new Double(yytext()));}
-<YYINITIAL> "#x"[0-9a-fA-F]+ {return new Symbol(sym.INTEGER, 0);}
-<YYINITIAL> "#b"{0|1}+ {return new Symbol(sym.INTEGER,0);}
-<YYINITIAL> "#c"[^\r\n] {return new Symbol(sym.CHAR, yytext());}
+
+<YYINITIAL> "#x"[0-9a-fA-F]+ {return new Symbol(sym.INTEGER, Integer.parseInt(yytext().substring(2),16));}
+
+<YYINITIAL> "#b"{0|1}+ {return new Symbol(sym.INTEGER, Integer.parseInt(yytext().substring(2),2));}
+
+<YYINITIAL> "#c"[^\r\n] {return new Symbol(sym.CHAR, yytext().charAt(2));}
+
 <YYINITIAL> "#e" {return new Symbol(sym.NIL);}
-<YYINITIAL> "#u"[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F] {return new Symbol(sym.CHAR, 0)}
+
+<YYINITIAL> "#u"[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F] {return new Symbol(sym.CHAR, yytext())}
+
 <YYINITIAL> "#t" {return new Symbol(sym.BOOL, true);}
+
 <YYINITIAL> "#f" {return new Symbol(sym.BOOL, false);}
 
+<YYINITIAL> "\""[^\r\n]"\"" {return new Symbol(sym.STRING, yytext());}
 
-
-
-
-<YYINITIAL>    {alpha}{alphanum}* {
-	       // VARIABLE
-	       return new Symbol(sym.VARIABLE, yytext());
-	       }
+<YYINITIAL> {alpha}{alphanum}* {return new Symbol(sym.VARIABLE, yytext());}
