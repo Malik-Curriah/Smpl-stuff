@@ -18,6 +18,6 @@ public class FnPlotChar extends FnPlotValue<FnPlotChar>{
     }
 
     public String toString(){
-        return "\"" + this.val + "\"";
+        return String.valueOf(val);
     }
 }
