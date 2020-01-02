@@ -48,15 +48,32 @@ scan with {:
 
 // special symbols
 terminal LPAREN, RPAREN;
+terminal CONCAT;
+
+// relational operators
+terminal GTHAN, LTHAN, EQUAL, NOTEQUAL, EQLTHAN, EQGTHAN;
+
 
 // arithmetic operators
-terminal PLUS, MINUS, MUL, DIV, MOD, ASSIGN;
-terminal LET, IN, LBRACE, RBRACE, COMMA;
-terminal SEMI;
+terminal PLUS, MINUS, MUL, DIV, MOD, ASSIGN, EXP;
+
+//keywords
+terminal LET, IF, LBRACE, RBRACE, COMMA;
+terminal SEMI, COLON;
+terminal PROC, CALL, DEFINE, THEN, ELSE, CASE;
+
+//bitwise operators
+terminal BOR, BAND, BNOT;
+
+//boolean operators
+terminal OR, AND, NOT;
 
 // terminals with values
 terminal Integer INTEGER;
 terminal String VARIABLE;
+terminal boolean BOOL;
+terminal char CHAR;
+terminal String STRING;
 
 /* Non terminals */
 non terminal ArithProgram program;
@@ -71,6 +88,11 @@ non terminal Binding binding;
 
 non terminal Exp expression;
 non terminal Exp arithExp;
+non terminal Exp boolExp;
+non terminal Exp boolExp1;
+non terminal Exp boolExp2;
+non terminal Exp relExp;
+
 non terminal Exp term;
 non terminal Exp factor;
 non terminal FnPlotValue<?> number;
@@ -93,7 +115,21 @@ stmt ::= definition:d {: RESULT = d; :} |
 
 expression ::=  letExp:l {: RESULT = l; :} |
 		LBRACE stmtList:body RBRACE {: RESULT = body; :} |
-		arithExp:a {: RESULT = a; :} ;
+		boolExp:b {: RESULT = b; :} ;
+
+boolExp ::= boolExp1:b1 OR boolExp1:b2 {: RESULT = new ExpOr(b1,b2); :} | boolExp1:b {: RESULT = b; :};
+
+boolExp1 ::= boolExp2:b1 AND boolExp2:b2 {:RESULT = new ExpAnd(b1,b2);:} | boolExp2:b {: RESULT = b;:};
+
+boolExp2 ::= NOT relExp:r {: RESULT = new ExpNot(r);:} | relExp:r {:RESULT = r;:};
+
+relExp ::= arithExp:a1 LTHAN arithExp:a2 {: RESULT = new ExpLthan(a1,a2);:} | 
+		arithExp:a1 GTHAN arithExp:a2 {: RESULT = new ExpGthan(a1,a2);:}|
+		arithExp:a1 EQLTHAN arithExp:a2 {: RESULT = new ExpEQLthan(a1,a2);:} |
+		arithExp:a1 EQGTHAN arithExp:a2 {: RESULT = new ExpEQGthan(a1,a2);:} |
+		arithExp:a1 EQUAL arithExp:a2 {: RESULT = new ExpEqual(a1,a2);:} |
+		arithExp:a1 NOTEQUAL arithExp:a2 {: RESULT = new ExpLthan(a1,a2);:};
+		arithExp:a {:RESULT = a;:};
 
 letExp ::= LET bindings:bs IN expression:body {:
 			RESULT = new StmtLet(bs, body);

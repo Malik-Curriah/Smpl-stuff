@@ -58,6 +58,7 @@ alphanum = {alpha}|{num}
 
 <YYINITIAL>	{nl}	{yycolumn = 0;}
 <YYINITIAL>	{ws} {}
+
 <YYINITIAL>	"+"	{return new Symbol(sym.PLUS);}
 <YYINITIAL>	"-"	{return new Symbol(sym.MINUS);}
 <YYINITIAL>	"*"	{return new Symbol(sym.MUL);}
@@ -65,9 +66,9 @@ alphanum = {alpha}|{num}
 <YYINITIAL>	"%"	{return new Symbol(sym.MOD);}
 <YYINITIAL>	":=" {return new Symbol(sym.ASSIGN);}
 <YYINITIAL> "^" {return new Symbol(sym.EXP);}
-<YYINITIAL> "&" {return new Symbol(sym.AND);}
-<YYINITIAL> "|" {return new Symbol(sym.OR);}
-<YYINITIAL> "~" {return new Symbol(sym.NOT);}
+<YYINITIAL> "&" {return new Symbol(sym.BAND);}
+<YYINITIAL> "|" {return new Symbol(sym.BOR);}
+<YYINITIAL> "~" {return new Symbol(sym.BNOT);}
 <YYINITIAL> "@" {return new Symbol(sym.CONCAT);}
 <YYINITIAL> ">" {return new Symbol(sym.LTHAN);}
 <YYINITIAL> "<" {return new Symbol(sym.GTHAN);}
@@ -94,6 +95,9 @@ alphanum = {alpha}|{num}
 <YYINITIAL> "else" {return new Symbol(sym.ELSE);}
 <YYINITIAL> "case" {return new Symbol(sym.CASE);}
 
+<YYINITIAL> "and" {return new Symbol(sym.AND);}
+<YYINITIAL> "not" {return new Symbol(sym.NOT);}
+<YYINITIAL> "or" {return new Symbol(sym.OR);}
 
 <YYINITIAL>	";" {return new Symbol(sym.SEMI);}
 <YYINITIAL> ":" {return new Symbol(sym.COLON);}
