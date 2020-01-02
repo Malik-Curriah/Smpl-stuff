@@ -122,7 +122,7 @@ boolExp ::= boolExp1:b1 OR boolExp1:b2 {: RESULT = new ExpOr(b1,b2); :} | boolEx
 
 boolExp1 ::= boolExp2:b1 AND boolExp2:b2 {:RESULT = new ExpAnd(b1,b2);:} | boolExp2:b {: RESULT = b;:};
 
-boolExp2 ::= NOT relExp:r {: RESULT = new ExpNot(r);:} | relExp:r {:RESULT = r;:} | BOOL:b {:RESULT = new ExpBool(b):}
+boolExp2 ::= NOT relExp:r {: RESULT = new ExpNot(r);:} | relExp:r {:RESULT = r;:} | BOOL:b {:RESULT = new ExpBool(b):};
 
 relExp ::= bitExp:a1 LTHAN bitExp:a2 {: RESULT = new ExpLthan(a1,a2);:} | 
 		bitExp:a1 GTHAN bitExp:a2 {: RESULT = new ExpGthan(a1,a2);:}|
