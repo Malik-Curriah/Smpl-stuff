@@ -28,6 +28,7 @@ public enum FnPlotType {
     REAL("real"), 
     BOOL("bool"),
     STRING("string"),
+    CHAR("char"),
     FUNCTION("user function");
     
     private final String docString;
