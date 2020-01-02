@@ -58,7 +58,7 @@ terminal GTHAN, LTHAN, EQUAL, NOTEQUAL, EQLTHAN, EQGTHAN;
 terminal PLUS, MINUS, MUL, DIV, MOD, ASSIGN, EXP;
 
 //keywords
-terminal LET, IF, LBRACE, RBRACE, COMMA;
+terminal LET, IN, LBRACE, RBRACE, COMMA;
 terminal SEMI, COLON;
 terminal PROC, CALL, DEFINE, THEN, ELSE, CASE;
 
@@ -71,6 +71,7 @@ terminal OR, AND, NOT;
 // terminals with values
 terminal Integer INTEGER;
 terminal String VARIABLE;
+terminal Double REAL;
 terminal boolean BOOL;
 terminal char CHAR;
 terminal String STRING;
@@ -175,7 +176,7 @@ term ::= term:t MUL factor:f {:
 	 factor:f {: RESULT = f; :};
 
 number ::= INTEGER:ilit {: RESULT = FnPlotValue.make(ilit); :} | REAL:ilit {:RESULT = FnPlotValue.make(ilit);:} |		
-		MINUS INTEGER:ilit {: RESULT = FnPlotValue.make(-ilit); :} | MINUS REAL:ilit {:RESULT = FnPlotValue.make(-ilit);:}
+		MINUS INTEGER:ilit {: RESULT = FnPlotValue.make(-ilit); :} | MINUS REAL:ilit {:RESULT = FnPlotValue.make(-ilit);:};
 
 factor ::= number:n {: RESULT = new ExpLit(n); :} |
 	   VARIABLE:var {: RESULT = new ExpVar(var); :} |
