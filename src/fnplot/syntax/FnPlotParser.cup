@@ -169,7 +169,8 @@ term ::= term:t MUL factor:f {:
 		RESULT = new ExpMod(t, f); :} |
 	 factor:f {: RESULT = f; :};
 
-number ::= INTEGER:ilit {: RESULT = FnPlotValue.make(ilit); :};
+number ::= INTEGER:ilit {: RESULT = FnPlotValue.make(ilit); :} | REAL:ilit {:RESULT = FnPlotValue.make(ilit);:} |		
+		MINUS INTEGER:ilit {: RESULT = FnPlotValue.make(-ilit); :} | MINUS REAL:ilit {:RESULT = FnPlotValue.make(-ilit);:}
 
 factor ::= number:n {: RESULT = new ExpLit(n); :} |
 	   VARIABLE:var {: RESULT = new ExpVar(var); :} |

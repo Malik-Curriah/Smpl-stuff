@@ -11,6 +11,9 @@ import fnplot.syntax.ExpSub;
 import fnplot.syntax.ExpMod;
 import fnplot.syntax.ExpVar;
 import fnplot.syntax.ExpAdd;
+import fnplot.syntax.ExpOr;
+import fnplot.syntax.ExpNot;
+import fnplot.syntax.ExpAnd;
 import fnplot.syntax.ArithProgram;
 import fnplot.sys.FnPlotException;
 
@@ -127,4 +130,19 @@ public interface Visitor<S, T> {
      * @throws FnPlotException If an error arises while visiting the subtree.
      */
     public T visitExpVar(ExpVar exp, S arg) throws FnPlotException;
+
+    /**
+     * Visit a logical OR Expression
+     */
+    public T visitExpOr(ExpOr exp, S arg) throws FnPlotException;
+
+    /**
+     * visit a logical AND Expression
+     */
+    public T visitExpAnd(ExpAnd exp, S arg) throws FnPlotException;
+
+    /**
+     * visit a logical NOT expression
+     */
+    public T visitExpNot(ExpNot exp, S arg) throws FnPlotException;
 }
