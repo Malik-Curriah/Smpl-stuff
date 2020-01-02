@@ -27,6 +27,6 @@ public class ExpLthan extends Exp {
 
     @Override
     public String toString() {
-        return exp1.toString() + " and " + exp2.toString();
+        return exp1.toString() + " < " + exp2.toString();
     }
 }
